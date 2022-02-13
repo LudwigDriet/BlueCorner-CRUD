@@ -1,0 +1,129 @@
+.contenedor-formuario{
+    width: 50%;
+    max-height: 600px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 1px 5px 15px black;
+    padding: 10px;
+    overflow: scroll ;
+    
+}
+
+.contenedor-formuario::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.contenedor-formuario::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.contenedor-formuario::-webkit-scrollbar-button:increment{
+    display: none;
+}
+
+.contenedor-formuario::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.contenedor-formuario::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.contenedor-formuario::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.contenedor-formuario::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+.x{
+    border-radius: 20%;
+    background-color: rgb(122, 172, 248);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.formulario{
+    display: flex;
+    
+    justify-content: space-between;
+    
+    padding: 20px 60px;
+    border-bottom: 1px solid gray;
+}
+.formulario:hover{
+    
+    border-bottom: 1px solid rgb(15, 12, 226);
+}
+
+.agregar-etiqueta{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+ 
+    
+}
+.contenedor-formuario label{
+font-size: 23px;
+
+}
+.contenedor-formuario h2{
+    
+    font-weight: 400;
+font-size: 25px;
+text-align: left;
+margin-left: 25%;
+margin-top: 5%;
+    
+    }
+.contenedor-formuario input{
+    font-size: 18px;
+    padding: 4px;
+    background: none;
+    border-radius: 5px;
+    }
+
+.agregar-boton{
+    padding: 4.5px;
+    background-color: rgb(218, 226, 236);
+    border: 1px solid rgb(122, 172, 248);
+    border-radius: 5px;
+    width: 100%;
+    
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+    margin-left: 30%;
+}
+.agregar-boton:hover{
+    background-color: rgb(209, 202, 202);
+    border: 1px solid rgb(43, 55, 73);
+    transition: 0.3s;
+    color: aliceblue;
+}
+
+.crear{
+    padding: 10px;
+    color: white;
+    background-color: rgb(48, 78, 122);
+    border: 1px solid rgb(154, 186, 235);
+    border-radius: 5px;
+    width: 60%;
+    font-size: 20px;
+    display: block;
+    margin: 10px auto;
+    cursor: pointer;
+    
+}
+.crear:hover{
+    background-color: rgb(20, 11, 11);
+    border: 1px solid rgb(43, 55, 73);
+    transition: 0.3s;
+    color: aliceblue;
+}

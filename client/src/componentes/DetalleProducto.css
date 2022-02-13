@@ -1,0 +1,107 @@
+.detalle-producto{
+    width: 50%;
+    max-height: 600px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 10px;
+    box-shadow: 1px 5px 15px black;
+    padding: 10px;
+    overflow: scroll ;
+
+}
+
+.detalle-producto::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.detalle-producto::-webkit-scrollbar:vertical {
+    width:10px;
+}
+
+.detalle-producto::-webkit-scrollbar-button:increment{
+    display: none;
+}
+
+.detalle-producto::-webkit-scrollbar-button {
+    display: none;
+} 
+
+.detalle-producto::-webkit-scrollbar:horizontal {
+    height: 10px;
+}
+
+.detalle-producto::-webkit-scrollbar-thumb {
+    background-color: #797979;
+    border-radius: 20px;
+    border: 2px solid #f1f2f3;
+}
+
+.detalle-producto::-webkit-scrollbar-track {
+    border-radius: 10px;  
+}
+
+
+
+
+.formulario-detalle{
+    display: flex;
+    
+    justify-content: space-between;
+    
+    padding: 20px 60px;
+    border-bottom: 1px solid gray;
+}
+
+.formulario-detalle:hover{
+    
+    border-bottom: 1px solid rgb(15, 12, 226);
+}
+
+.x-detalle{
+    border-radius: 20%;
+    background-color: rgb(122, 172, 248);
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.detalle-producto label{
+    font-size: 23px;
+    
+    }
+.detalle-producto h1{
+        border-bottom: 1px solid gray;
+        display: block;
+        margin: 0 auto;
+        width: 80%;
+        padding: 10px 0;
+        margin-bottom: 15px;
+        
+}
+
+
+.detalle-producto input{
+        font-size: 18px;
+        padding: 4px;
+        background: none;
+        border-radius: 5px;
+        }
+
+.detalle-boton{
+            padding: 4.5px;
+            background-color: rgb(218, 226, 236);
+            border: 1px solid rgb(122, 172, 248);
+            border-radius: 5px;
+            width: 40%;
+            
+            display: block;
+            margin: 10px auto;
+            cursor: pointer;
+           
+  }
+.detalle-boton:hover{
+            background-color: rgb(209, 202, 202);
+            border: 1px solid rgb(43, 55, 73);
+            transition: 0.3s;
+            color: aliceblue;
+  }

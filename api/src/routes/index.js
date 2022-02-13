@@ -1,15 +1,11 @@
 const { Router } = require('express');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
-
-
 const router = Router();
 
-// Configurar los routers
-// Ejemplo: router.use('/auth', authRouter);
 
-router.post('/', (req, res) =>{
+//POST'S
 
+router.post('/crearproducto', (req, res) =>{
+    console.log(req.body)
     const nombre = req.body.nombre
    const etiquetas = req.body.etiquetas
 
@@ -17,41 +13,85 @@ router.post('/', (req, res) =>{
         if(err) return res.send(err)
 
        conn.query('INSERT INTO productos set ?',  [{"nombre":nombre}], (err, rows)=>{
-            if(err) return res.send(err)
-            
-           
-            
-
            let proId =  rows.insertId
-           
-          if(etiquetas && proId){
+            if(err) {
+                return res.send(err)
+            }
+            else if(etiquetas && proId){
               for(let i =0; i<etiquetas.length ; i++){
 
 
                   conn.query('INSERT INTO etiquetas set ?',  [{"nombre":etiquetas[i],"id_producto":proId}], (err, rows)=>{
                     if(err) return res.send(err)
-                    
-                    
-                })
-            }
-            res.send('producto guardado')
-        } 
-        else{
-            res.send('producto guardado')
-        }
+                    })
+                 }
+            
+            res.send('producto creado')
+            } 
+            else{
+                res.send('producto creado')
+
+                }
          
               
-        
         })
         
     })
 
 })
 
-router.delete('/deleetiqueta/:id', (req, res) =>{
+router.post('/crearetiqueta', (req, res) =>{
 
-    // const {nombre, id_producto} = req.body
-    
+    const nombre = req.body.nombre
+    const proId = req.body.id_producto
+
+   
+
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+                 conn.query('INSERT INTO etiquetas set ?',  [{"nombre":nombre,"id_producto":proId}], (err, rows)=>{
+                    if(err) return res.send(err)
+                    res.send('etiqueta cargada')
+                    })
+         })
+
+})
+
+//GET'S
+
+router.get('/', (req, res)=>{
+
+     req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT * FROM productos', (err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+router.get('/detalle/:id', (req, res)=>{
+
+    console.log(req.params)
+    req.getConnection((err, conn)=>{
+        if(err) return res.send(err)
+
+        conn.query('SELECT productos.Nombre, etiquetas.Nombre ,etiquetas.Id_etiqueta FROM productos INNER JOIN etiquetas ON etiquetas.Id_producto = productos.Id_producto WHERE productos.Id_producto = ?' ,[req.params.id] ,(err, rows)=>{
+            if(err) return res.send(err)
+
+            res.json(rows)
+        })
+    })
+})
+
+
+//DELETE'S
+
+router.delete('/etiquetasdelete/:id', (req, res) =>{
+
     
     req.getConnection((err, conn)=>{
         if(err) return res.send(err)
@@ -68,37 +108,9 @@ router.delete('/deleetiqueta/:id', (req, res) =>{
 })
 
 
-router.get('/', (req, res)=>{
 
-    
 
-    req.getConnection((err, conn)=>{
-        if(err) return res.send(err)
-
-        conn.query('SELECT * FROM productos', (err, rows)=>{
-            if(err) return res.send(err)
-
-            res.json(rows)
-        })
-    })
-})
-
-router.get('/et/:id', (req, res)=>{
-
-    
-
-    req.getConnection((err, conn)=>{
-        if(err) return res.send(err)
-
-        conn.query('SELECT productos.Nombre, etiquetas.Nombre FROM productos INNER JOIN etiquetas ON etiquetas.Id_producto = productos.Id_producto WHERE productos.Id_producto = ?' ,[req.params.id] ,(err, rows)=>{
-            if(err) return res.send(err)
-
-            res.json(rows)
-        })
-    })
-})
-
-router.delete('/product/:id', (req, res)=>{
+router.delete('/productodelete/:id', (req, res)=>{
 
     
 

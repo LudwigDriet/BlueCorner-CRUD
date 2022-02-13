@@ -2,9 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector} from 'react-redux';
-import { addEtiqueta, getDetalle } from "../redux/actions";
+import { addEtiqueta, getDetalle ,getProductos,creadaReset,deleteEtiqueta,eliminaretiquetaReset} from "../redux/actions";
 
-import { Link } from "react-router-dom";
+import './DetalleProducto.css'
 
 export default function DetalleProducto() {
   const dispatch = useDispatch()
@@ -12,23 +12,29 @@ export default function DetalleProducto() {
   const detalle = useSelector(state => state.detalle)
   const productos = useSelector(state => state.productos)
   const creada = useSelector(state => state.etiquetacreada)
+  const eliminada = useSelector(state => state.etiquetaeliminada)
 
-  let producto = productos.find(p=> p.Id_producto = params )
 
-  
+  let producto = productos.find(p=> p.Id_producto === parseInt(params.idProducto) )
+
+
 
   const [detalleProducto, setdetalleProducto] = useState([]);
   const [etiqueta, setetiqueta] = useState('');
-  const [etiquetas, setetiquetas] = useState([]);
+  
 
 
+  useEffect(()=>{
+    dispatch(getProductos())
+},[dispatch])
 
   useEffect(() => {
+   
     
    dispatch(getDetalle(params.idProducto))
   
 
-  }, [params.idProducto]);
+  }, [params.idProducto,dispatch]);
 
   useEffect(() => {
     if(detalle){
@@ -36,61 +42,71 @@ export default function DetalleProducto() {
       
     }
  
-   }, [detalle]);
+   }, [detalle,dispatch]);
 
 
    useEffect(() => {
     if(creada){
-      getDetalle(params.idProducto)
-      
+     
+      dispatch(getDetalle(params.idProducto))
+      dispatch(creadaReset())
+      setetiqueta('')
+
+    }
+    else if(eliminada){
+      dispatch(getDetalle(params.idProducto))
+      dispatch(eliminaretiquetaReset())
+
     }
  
-   }, [creada]);
+   }, [creada,eliminada,dispatch,params.idProducto]);
 
    
 
    let nuevaEtiqueta = (evento) => {
+     let etiquetaverificada = etiqueta.charAt(0).toUpperCase() + etiqueta.slice(1).toLocaleLowerCase()
     evento.preventDefault();
-    if(etiqueta){
-      dispatch(addEtiqueta({nombre:etiqueta,id_producto:params.idProducto}))
+    let encontrado = detalle.find((et)=>et.Nombre === etiquetaverificada)
+   
+    if(encontrado){
+      alert('este producto ya tiene esta etiqueta')
+    }
+    else if(etiquetaverificada.trim() !== ""){
+      if(etiquetaverificada.length <= 50){
+
+        dispatch(addEtiqueta({nombre:etiquetaverificada,id_producto:params.idProducto}))
+      }
+      else{
+        alert('el nombre de la etiqueta no puede tener mas de 50 caracteres')
+      }
+    }
+    else{
+      alert('la etiqueta no puede estar vacia')
     }
   };
+
   let cambio = (evento) => {
     evento.preventDefault();
     setetiqueta(
          evento.target.value);
   };
    
-   
-  console.log('etiquetas...',etiqueta)
+   let eliminarEtiqueta = (id)=>{
+    
+    dispatch(deleteEtiqueta(id))
+   }
+
 
   return (
-    <div className="detalle_contenedorgeneral">
-      <div className="detalle_contenedor">
-        <div className="detalle_bandera">
-          
+    
+      <div className="detalle-producto">
+        <div >
+          <h1>{producto?.Nombre}</h1>
+           </div>
+        <div >
           <div>
-            <h2>Producto: {producto?.Nombre}</h2>
             
-          </div>
-        </div>
-        <div className="detalle_bandera">
-          <div>
-            <h2 style={{ marginLeft: "10px", marginRight: "10px" }}>
-              Etiquetas :
-            </h2>
-          </div>
-          {detalleProducto.length
-            ? detalleProducto.map((etiqueta, i) => {
-                return (
-                  <div key={i} className="detalle_actividad">
-                    <h3>{etiqueta.Nombre}</h3>
-                    
-                  </div>
-                );
-              })
-            : "Este producto aun no tiene etiquetas"}
-          <div>
+          
             <form  onSubmit={nuevaEtiqueta}>
             <label htmlFor="etiqueta">Nueva Etiqueta </label>
             <input
@@ -101,12 +117,27 @@ export default function DetalleProducto() {
           value={etiqueta}
           onChange={(evento) => cambio(evento)}
           />
-          <button className="boton_formulario">Crear</button>
+          <button className="detalle-boton" >Crear</button>
             </form>
+            </div>
+            <h2 style={{textAlign:'left', marginLeft:'5%'}}>Etiquetas :</h2>
+            <div>
+          {detalleProducto.length
+            ? detalleProducto.map((etiqueta, i) => {
+                return (
+                  <div key={i} className='formulario-detalle' >
+                    <h3>{etiqueta.Nombre}</h3> 
+                    <p value={etiqueta.Id_etiqueta} onClick={()=>eliminarEtiqueta(etiqueta.Id_etiqueta)} className='x-detalle'>x</p>
+                  </div>
+                );
+              })
+            : "Este producto aun no tiene etiquetas"}
+            </div>
+          <div>
           </div>
         </div>
-        <div></div>
+        
       </div>
-    </div>
+    
   );
 };
