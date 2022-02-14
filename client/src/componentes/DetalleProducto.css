@@ -45,9 +45,7 @@
 
 .formulario-detalle{
     display: flex;
-    
     justify-content: space-between;
-    
     padding: 20px 60px;
     border-bottom: 1px solid gray;
 }

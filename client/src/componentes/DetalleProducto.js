@@ -100,42 +100,40 @@ export default function DetalleProducto() {
   return (
     
       <div className="detalle-producto">
-        <div >
-          <h1>{producto?.Nombre}</h1>
-           </div>
-        <div >
-          <div>
             
-          
-            <form  onSubmit={nuevaEtiqueta}>
-            <label htmlFor="etiqueta">Nueva Etiqueta </label>
-            <input
-          id="etiqueta"
-          type="text"
-          placeholder="Nombre de la etiqueta"
-          name="etiqueta"
-          value={etiqueta}
-          onChange={(evento) => cambio(evento)}
-          />
-          <button className="detalle-boton" >Crear</button>
-            </form>
-            </div>
-            <h2 style={{textAlign:'left', marginLeft:'5%'}}>Etiquetas :</h2>
-            <div>
-          {detalleProducto.length
-            ? detalleProducto.map((etiqueta, i) => {
-                return (
-                  <div key={i} className='formulario-detalle' >
-                    <h3>{etiqueta.Nombre}</h3> 
-                    <p value={etiqueta.Id_etiqueta} onClick={()=>eliminarEtiqueta(etiqueta.Id_etiqueta)} className='x-detalle'>x</p>
+              <h1>{producto?.Nombre}</h1>
+              
+            <div >
+                  <div>
+                      <form  onSubmit={nuevaEtiqueta}>
+                            <label htmlFor="etiqueta">Nueva Etiqueta </label>
+                                <input
+                                    id="etiqueta"
+                                    type="text"
+                                    placeholder="Nombre de la etiqueta"
+                                    name="etiqueta"
+                                    value={etiqueta}
+                                    onChange={(evento) => cambio(evento)}
+                                  />
+                          <button className="detalle-boton" >Crear</button>
+                        </form>
                   </div>
-                );
-              })
-            : "Este producto aun no tiene etiquetas"}
+                    <h2 style={{textAlign:'left', marginLeft:'5%'}}>Etiquetas :</h2>
+                  <div>
+                        {detalleProducto.length
+                          ? detalleProducto.map((etiqueta, i) => {
+                              return (
+                                <div key={i} className='formulario-detalle' >
+                                  <h3>{etiqueta.Nombre}</h3> 
+                                  <p value={etiqueta.Id_etiqueta} onClick={()=>eliminarEtiqueta(etiqueta.Id_etiqueta)} className='x-detalle'>x</p>
+                                </div>
+                              );
+                            })
+                          : "Este producto aun no tiene etiquetas"}
+                    </div>
+                  <div>
+                  </div>
             </div>
-          <div>
-          </div>
-        </div>
         
       </div>
     

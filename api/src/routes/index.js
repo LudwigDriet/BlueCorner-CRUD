@@ -21,13 +21,13 @@ router.post('/crearproducto', (req, res) =>{
               for(let i =0; i<etiquetas.length ; i++){
 
 
-                  conn.query('INSERT INTO etiquetas set ?',  [{"nombre":etiquetas[i],"id_producto":proId}], (err, rows)=>{
-                    if(err) return res.send(err)
-                    })
-                 }
+                        conn.query('INSERT INTO etiquetas set ?',  [{"nombre":etiquetas[i],"id_producto":proId}], (err, rows)=>{
+                            if(err) return res.send(err)
+                            })
+                    }  
             
-            res.send('producto creado')
-            } 
+                    res.send('producto creado')
+                } 
             else{
                 res.send('producto creado')
 

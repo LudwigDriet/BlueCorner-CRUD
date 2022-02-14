@@ -6,6 +6,7 @@ const server = express();
 const mysql = require('mysql');
 const bodyParser = require('body-parser')
 
+
 const dbOptions = {
     
     host : 'localhost',

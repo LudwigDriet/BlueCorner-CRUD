@@ -1,5 +1,4 @@
 import React from "react";
-
 import './App.css';
 import { Routes, Route ,Link } from "react-router-dom";
 import Home from './componentes/Home'
@@ -15,13 +14,7 @@ function App() {
       
       <Routes>
       <Route
-          path="/" element={
-          <div>
-
-            <Home/>
-
-          </div>
-        } />
+          path="/" element={<Home/>} />
 
         <Route
           path="/detalleProducto/:idProducto"
@@ -37,7 +30,6 @@ function App() {
           element={
             <div >
               <Link className="link-app" to={"/"}>HOME</Link>
-
               <CrearProducto/>
             </div>
           }

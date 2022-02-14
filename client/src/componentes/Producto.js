@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import './Producto.css'
 
-export const Producto = (props) => {
+export default function Producto(props) {
+
   let { nombre, id } = props;
   
   return (
